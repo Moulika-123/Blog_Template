@@ -1,55 +1,43 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    line-height: 1.6;
+*{
+    margin: 0px;
+    padding: 0px;
+}.main{
+    height:100%;
 }
-
-header {
-    background: #333;
-    color: #fff;
-    padding: 1rem 0;
-    text-align: center;
+form {
+    margin-left: 200px;
+    margin-right: 200px;
+    background: rgb(154, 196, 244);
+    display: flex;
+    justify-content: center;
+    position: relative;
+    top: 10%;
+    border-radius: 100px;
+    }
+h1{
+    color: rgb(11, 11, 11);
 }
-
-header ul {
-    list-style: none;
-    padding: 0;
+#UN,#UE,#UP,#CP {
+    padding: 10px;
+    border: 1px white;
+    border-radius: 6px;
+    font-size: 20px; 
+    margin-bottom: 10px;
 }
-
-header ul li {
-    display: inline;
-    margin: 0 10px;
+.error {
+    color: #f40404; 
+    font-size: 20px;
+    margin-top: 5px;
+    font-weight: bold;
 }
-
-header ul li a {
-    color: #fff;
-    text-decoration: none;
+button {
+    background-color: #3eb542; 
+    color: rgb(12, 12, 12); 
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 16px; 
+    cursor: pointer; 
 }
-
-#hero {
-    background: #f4f4f4;
-    padding: 2rem 1rem;
-    text-align: center;
-}
-
-#projects {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-    padding: 1rem;
-}
-
-.project-card {
-    background: #fff;
-    border: 1px solid #ddd;
-    padding: 1rem;
-    text-align: center;
-}
-
-footer {
-    background: #333;
-    color: #fff;
-    text-align: center;
-    padding: 1rem 0;
+button:hover {
+    background-color: #04834c;
 }

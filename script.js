@@ -1,65 +1,57 @@
-document.addEventListener('DOMContentLoaded', loadTasks);
+form.addEventListener('click',(e)=>{
+    e.preventDefault()
+    validInputs()
+})
 
-const taskForm = document.getElementById('task-form');
-const taskInput = document.getElementById('task-input');
-const taskList = document.getElementById('task-list');
-
-
-taskForm.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const taskText = taskInput.value;
-  if (taskText.trim() === '') return;
-
-  addTaskToList(taskText);
-  saveTaskToLocalStorage(taskText);
-  taskInput.value = '';
-});
-
-
-function addTaskToList(taskText) {
-  const li = document.createElement('li');
-  li.innerHTML = `
-    ${taskText}
-    <button class="delete">Delete</button>
-  `;
-  li.addEventListener('click', toggleComplete);
-  li.querySelector('.delete').addEventListener('click', deleteTask);
-  taskList.appendChild(li);
+const E = (element,message)=>{
+    const a = element.parentElement
+    const b = a.querySelector('.error')
+    b.innerHTML=message
+}
+const S = (element)=>{
+    const a = element.parentElement
+    const b = a.querySelector('.error')
+    b.innerHTML=''
 }
 
-function toggleComplete(e) {
-  this.classList.toggle('completed');
+const emailValid=(element)=>{
+    const res=/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    return res.test(String(element).toLowerCase())
 }
 
+const validInputs = () => {
+    const UNValue = UN.value;
+    const UEValue = UE.value;
+    const UPValue = UP.value;
+    const CPValue = CP.value;
 
-function deleteTask(e) {
-  e.stopPropagation();
-  const taskItem = this.parentElement;
-  removeTaskFromLocalStorage(taskItem.textContent.replace('Delete', '').trim());
-  taskItem.remove();
-}
+    if (UNValue === '') {
+        E(UN, "Enter name");
+    } else {
+        S(UN);
+    }
 
+    if (UEValue === '') {
+        E(UE, "Enter email");
+    } else if (!emailValid(UEValue)) {
+        E(UE, "Enter a valid email address");
+    } else {
+        S(UE);
+    }
 
-function saveTaskToLocalStorage(task) {
-  const tasks = getTasksFromLocalStorage();
-  tasks.push(task);
-  localStorage.setItem('tasks', JSON.stringify(tasks));
-}
+    if (UPValue === '') {
+        E(UP, "Enter password");
+    } else if (UPValue.length < 6) {
+        E(UP, "Password must be at least 6 characters");
+    } else {
+        S(UP);
+    }
 
-
-function loadTasks() {
-  const tasks = getTasksFromLocalStorage();
-  tasks.forEach(addTaskToList);
-}
-
-
-function getTasksFromLocalStorage() {
-  return JSON.parse(localStorage.getItem('tasks')) || [];
-}
-
-
-function removeTaskFromLocalStorage(task) {
-  const tasks = getTasksFromLocalStorage();
-  const filteredTasks = tasks.filter(t => t !== task);
-  localStorage.setItem('tasks', JSON.stringify(filteredTasks));
+    if (CPValue === '') {
+        E(CP, "Confirm password");
+    } else if (CPValue !== UPValue) {
+        E(CP, "Passwords do not match");
+    } else {
+        S(CP);
+    }
 }
